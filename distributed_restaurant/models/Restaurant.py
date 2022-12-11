@@ -1,4 +1,5 @@
 from distributed_restaurant.models.Client import Client
+from tasks import make_meal, deliver_meal
 
 class Restaurant:
     
@@ -41,3 +42,9 @@ class Restaurant:
     
     def get_menu(self):
         return [item.to_dict() for item in self.menu]
+
+    def create_order(self, order, client_id):
+        make_meal.apply_async((order), queue='chef')
+
+        deliver_meal.apply_async((client_id), queue='delivery')
+        pass
