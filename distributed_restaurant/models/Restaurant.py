@@ -1,16 +1,13 @@
 from distributed_restaurant.models.Client import Client
 
 class Restaurant:
-
-    orders = []
-    clients = []
-    menu = []
     
-    def __init__(self):
-        #TODO Must implement menu inicialization
-        pass
+    def __init__(self, name, menu, clients=[], orders=[]):
+        self.name = name
+        self.menu = menu
+        self.clients = clients
+        self.orders = orders
 
-    #TODO implement add/remove order
     #TODO implement something to consume order, suggestion: something with celery to fullfill teacher requirement
 
     def register_client(self, email):
@@ -19,6 +16,10 @@ class Restaurant:
         client = Client(email)
         self.clients.append(client)
         return client, None
+
+    def register_order(self, order):
+        self.orders.append(order)
+        return 'Order registered'
 
     def remove_client(self, email):
         result = next((index for index, obj in enumerate(self.clients) if obj.email == email), None)
