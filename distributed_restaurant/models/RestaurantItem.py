@@ -8,3 +8,11 @@ class RestaurantItem:
 
     def __str__(self):
         return f'Item({self.item_id}, {self.name}, {self.preparation_time})'
+
+    def to_dict(self):
+        return {
+            'item_id': self.item_id,
+            'name': self.name,
+            'price': self.price,
+            'preparation_time': self.preparation_time
+        }

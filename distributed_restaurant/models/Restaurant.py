@@ -38,3 +38,6 @@ class Restaurant:
     
     def get_orders_by_client_id(self, client_id):
         return [str(order) for order in self.orders if order.client_id == client_id]
+    
+    def get_menu(self):
+        return [item.to_dict() for item in self.menu]
