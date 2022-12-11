@@ -3,6 +3,7 @@ import json
 from flask import Blueprint
 from distributed_restaurant import app
 from distributed_restaurant.routes.client import bp as client_bp
+from distributed_restaurant.routes.restaurant import bp as restaurant_bp
 
 bp = Blueprint('index', __name__)
 
@@ -12,5 +13,6 @@ def index():
 
 blueprints = [
     (bp, '/'),
-    (client_bp, '/client')
+    (client_bp, '/client'), 
+    (restaurant_bp, '/restaurant')
 ]

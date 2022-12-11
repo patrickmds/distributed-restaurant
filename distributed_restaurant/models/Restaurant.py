@@ -10,6 +10,7 @@ class Restaurant:
 
     #TODO implement something to consume order, suggestion: something with celery to fullfill teacher requirement
 
+    #--------------- client methods ---------------#
     def register_client(self, email):
         if next((x for x in self.clients if x.email == email), None):
             return None, 'Email already exists'
@@ -29,3 +30,11 @@ class Restaurant:
 
     def get_client(self, email):
         return next((x for x in self.clients if x.email == email), None)
+
+
+    #------------- restaurant methods -------------#
+    def get_orders(self):
+        return [str(order) for order in self.orders]
+    
+    def get_orders_by_client_id(self, client_id):
+        return [str(order) for order in self.orders if order.client_id == client_id]
