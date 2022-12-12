@@ -15,8 +15,6 @@ class Restaurant:
         self.profit = profit
         self.mutex = Lock()
 
-    #TODO implement something to consume order, suggestion: something with celery to fullfill teacher requirement
-
     #--------------- client methods ---------------#
     def register_client(self, email):
         if next((x for x in self.clients if x.email == email), None):
