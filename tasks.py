@@ -9,13 +9,14 @@ app.conf.task_routes = {
     'tasks.deliver_meal': {'queue': 'delivery'}
 }
 
-@app.task
-def make_meal(order):
-    for item in order['item']:
-        time.sleep(item.preparation_time)
+# @app.task
+# def make_meal(order):
+#     for item in order['item']:
+#         time.sleep(item.preparation_time)
     
-    return order
+#     return order
 
 @app.task
-def deliver_meal(client_id):
-    pass
+def deliver_meal(delivery_time):
+    time.sleep(delivery_time)
+    return f'Delivery took {delivery_time}s'

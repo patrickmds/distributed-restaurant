@@ -41,8 +41,10 @@ def create_order():
     order = Order(items, OrderState.WAITING, client.id)
     restaurant.create_order(order, client.id)
 
-    toReturnOrder.order = order.id
-    toReturnOrder.change = change
+    toReturnOrder = {
+        'order': order.id,
+        'change': change
+    }
     return json.dumps(toReturnOrder)
 
 @bp.route('/<order_id>', methods=['POST'])

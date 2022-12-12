@@ -2,7 +2,7 @@ import time
 
 from distributed_restaurant.models.OrderState import OrderState
 from distributed_restaurant.models.Client import Client
-from tasks import make_meal, deliver_meal
+from tasks import deliver_meal
 from threading import Lock
 
 class Restaurant:
@@ -47,14 +47,18 @@ class Restaurant:
         price = 0
         for item in items:
             in_menu = next((x for x in self.menu if x.item_id == item['id']), None)
-            price += in_menu.price* item['quantity']
+            if in_menu:
+                price += in_menu.price* item['quantity']
         return price
 
     def get_preparation_time(self, order):
         time = 0
         for item in order.items:
             in_menu = next((x for x in self.menu if x.item_id == item['id']), None)
-            time += in_menu.preparation_time
+            if in_menu:
+                time += in_menu.preparation_time
+        if not time:
+            time = 10
         return time
     
     def get_orders_by_client_id(self, client_id):
@@ -67,14 +71,15 @@ class Restaurant:
         order.state = OrderState.COOKING
         self.prepare_order(order)
         order.state = OrderState.DELIVERING
-        # deliver_meal.apply_async((client_id), queue='delivery')
+        preparation_time = self.get_preparation_time(order)
+        deliver_meal.apply_async(args=(preparation_time,), queue='deliver_meal')
 
     def get_order(self, order_id):
         return next((x for x in self.orders if x.id == order_id), None)
         
     def prepare_order(self, order):
-        time = self.get_preparation_time(order)
-        time.sleep(time)
+        time_ = self.get_preparation_time(order)
+        time.sleep(time_)
 
     def confirm_order_delivered(self, order_id):
         result = next((index for index, obj in enumerate(self.orders) if obj.id == order_id), None)
