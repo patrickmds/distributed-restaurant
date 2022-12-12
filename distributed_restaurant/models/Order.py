@@ -1,13 +1,12 @@
 
-class Order(dict):
-    def __init__(self, items, quantity, client_id):
-        dict.__init__(
-            self, item=[x.to_dict() for x in items],
-            quantity=quantity, client_id=client_id
-        )
-        # self.items = items
-        # self.quantity = quantity
-        # self.client_id = client_id
+import uuid
+
+class Order():
+    def __init__(self, items, state, client_id):
+        self.id = uuid.uuid4().hex
+        self.items = items
+        self.state = state
+        self.client_id = client_id
 
     # def __dict__(self):
     #     return {

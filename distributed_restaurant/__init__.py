@@ -12,8 +12,8 @@ app = Flask(__name__)
 
 # preloading configs, used for test purposes
 menu = [RestaurantItem(1, 'Pizza Pequena', 34.99, 20),
-        RestaurantItem(2, 'Pizza Média', 65.99, 20),
-        RestaurantItem(3, 'Pizza Grande', 85.99, 20),
+        RestaurantItem(2, 'Pizza Média', 65.99, 25),
+        RestaurantItem(3, 'Pizza Grande', 85.99, 30),
         RestaurantItem(4, 'Batata Frita', 15.99, 3),
         RestaurantItem(5, 'X-Salada', 25.99, 10),
         RestaurantItem(6, 'Cerveja litro', 12.99, 1),
